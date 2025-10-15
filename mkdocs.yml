@@ -6,7 +6,9 @@ nav:
   - Equipe: index.md
   - Cronograma: 
     - Sprints: "Planejamento/cronograma.md"
-  - Engenharia de Requisitos: 
+  - Engenharia de Requisitos:
+    - Elicitação:
+      - Backlog: Elicitacao/backlog.md
     - Requisitos do Projeto: "Design_thinking/requisitosProduto.md"
     - Requisitos de Maquine Learning: "Design_thinking/requisitosML.md"
     - Artefatos: "Design_thinking/design_thinking.md"

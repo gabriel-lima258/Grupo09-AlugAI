@@ -2,9 +2,7 @@
 
 ## **1. Introdução**
 
-O presente documento tem como objetivo apresentar os **requisitos funcionais e não funcionais** do sistema **PrediAluguel**, uma aplicação baseada em **Inteligência Artificial** que realiza a **estimativa do valor justo de aluguel de imóveis residenciais**.
-
-O projeto busca **tornar o mercado imobiliário mais transparente e acessível**, permitindo que usuários consultem valores aproximados de aluguel com base em dados reais — como localização, metragem, número de quartos, tipo de imóvel e média regional.  
+O presente documento tem como objetivo apresentar os **requisitos funcionais e não funcionais** do sistema **PrediAluguel**, utilizando a técnica de análise documental. Para a elicitação destes requisitos, foram analisados os artefatos produzidos por meio de brainstorming com o framework [Design Thinking](design_thinking.md)
 
 Os requisitos descritos a seguir foram elaborados com foco em **funcionalidade, precisão, desempenho e usabilidade**, garantindo que a solução atenda às expectativas do público e às boas práticas de engenharia de software.
 
@@ -24,9 +22,6 @@ Os requisitos descritos a seguir foram elaborados com foco em **funcionalidade, 
 | **RF08** | **API de Consulta** | O sistema deve disponibilizar uma API REST pública para que outras plataformas imobiliárias consultem as estimativas. |
 | **RF09** | **Atualização de Dados** | O sistema deve atualizar automaticamente sua base de dados (ex: Kaggle, IBGE, portais públicos) de forma periódica. |
 | **RF10** | **Explicabilidade da IA** | O sistema deve exibir os principais fatores que influenciaram a previsão (ex: localização, área, número de quartos). |
-
-<font size="2"><p style="text-align: center"><b>Fonte: <a href="https://github.com/gabriel-lima258">Gabriel Lima</a></b></p></font>
-
 
 ---
 
@@ -65,4 +60,9 @@ O cumprimento destes requisitos assegura que o **PrediAluguel** se destaque como
 ## Histórico de versões
 | Versão | Data | Descrição | Autor | Revisor
 | :-: | :-: | :-: | :-: | :-:|
-|`1.0`| 07/10/2025 | Criação da página | [Gabriel Lima](https://github.com/gabriel-lima258) | [Mateus](), [Elias]() |
+|`1.0`| 07/10/2025 | Criação da página | [Gabriel Lima](https://github.com/gabriel-lima258) | [Mateus][MateusGH], [Elias][EliasGH] |
+
+
+[MateusGH]: https://github.com/mateusvasconcelos182
+[GabrielGH]: https://github.com/gabriel-lima258
+[EliasGH]: https://github.com/EliasOliver21
