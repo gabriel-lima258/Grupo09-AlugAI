@@ -12,6 +12,7 @@ O projeto **PrediAluguel** é fundamentado em um *pipeline* de Machine Learning 
 
 <p style="text-align:center"><b><a id="tab_1" style="visibility:hidden;"></a>Figura 1</b> – Diagrama da Arquitetura</p>
 
+![Diagrama da Arquitetura](../assets/arquitetura/arquitetura_macro.JPG)
 ![Diagrama da Arquitetura](../assets/arquitetura/arquitetura_macro.png)
 >>>>>>> 7890fb1 (docs: merg branch docs)
 
