@@ -1,6 +1,6 @@
 ## Arquitetura de Dados
 
-    O projeto **PrediAluguel** é fundamentado em um *pipeline* de Machine Learning (MLOps) desenhado para garantir a precisão contínua da precificação de
+O projeto **PrediAluguel** é fundamentado em um *pipeline* de Machine Learning (MLOps) desenhado para garantir a precisão contínua da precificação de
 alugéis em Brasília. Nossa arquitetura se concentra em um fluxo robusto de dados estruturados, desde a coluna e engenharia de *features* até a disponibilização do modelo via API para sistema web.
 
 <p style="text-align:center"><b><a id="tab_1" style="visibility:hidden;"></a>Figura 1</b> – Diagrama da Arquitetura</p>
@@ -14,27 +14,27 @@ alugéis em Brasília. Nossa arquitetura se concentra em um fluxo robusto de dad
 
 ### Coleta e Armazenamento dos Dados
 
-A coleta será manual no inicio, combinando datasets estáticos do Kaggle (base) com scraping dinâmico de portais imobiliários do DF, onde a coleta dos datasets disponíveis do Kaggle será utilizado apenas uma vez para o treinamento e o scraping de dados ocorrerá quinzenalmente/mensal (a decidir). Os dados brutos são armazenados localmente no inicio, podendo evoluir para Cloud Storage ou AWS S3.
+- A coleta será manual no inicio, combinando datasets estáticos do Kaggle (base) com scraping dinâmico de portais imobiliários do DF, onde a coleta dos datasets disponíveis do Kaggle será utilizado apenas uma vez para o treinamento e o scraping de dados ocorrerá quinzenalmente/mensal (a decidir). Os dados brutos são armazenados localmente no inicio, podendo evoluir para Cloud Storage ou AWS S3.
 
-O projeto será automatizado no futuro utilizando DAG's do Airflow quinzenalmente/mensalmente para atualização dos dados do modelo de predição dos novos imóveis disponibilizados nos portais de aluguel de imóveis.
+- O projeto será automatizado no futuro utilizando DAG's do Airflow quinzenalmente/mensalmente para atualização dos dados do modelo de predição dos novos imóveis disponibilizados nos portais de aluguel de imóveis.
 
 ### Técnicas de Amostragem
 
-Não foi utilizado técnicas de amostragem, visto que nosso MVP é focado no público específico de Brasília.
+- Não foi utilizado técnicas de amostragem, visto que nosso MVP é focado no público específico de Brasília.
 
 ### Rotulação e Balanceamento
 
-Não houve rotulação manual. O problema de Classificação (Custo-Benefício) é resolvido através da criação da Métrica Estatística/Regras de Negócio. O alvo principal (rent_amount) é intrinsecamente rotulado nos dados brutos. O modelo de Classificação é substituído por um Motor de Regras baseado no Modelo de Regressão.
+- Não houve rotulação manual. O problema de Classificação (Custo-Benefício) é resolvido através da criação da Métrica Estatística/Regras de Negócio. O alvo principal (rent_amount) é intrinsecamente rotulado nos dados brutos. O modelo de Classificação é substituído por um Motor de Regras baseado no Modelo de Regressão.
 
 ### Balanceamento de Classes
 
-O foco é em modelos de Regressão (Precificação e Previsão), que não lidam com classes desbalanceadas. A distribuição do Target será tratada com técnicas de Normalização e Tratamento de Outliers.
+- O foco é em modelos de Regressão (Precificação e Previsão), que não lidam com classes desbalanceadas. A distribuição do Target será tratada com técnicas de Normalização e Tratamento de Outliers.
 
 ### Data Augmentation
 
-Não realizamos o Data Augmentation clássico. Nossa estratégia para mitigar a falta de dados (especialmente dados históricos detalhados do DF) foi feita em duas etapas:
-1. Coleta Aumentada (Scraping): O web scraping foi essencial para aumentar o dataset em volume e em features, capturando variáveis que não estavam nas bases do Kaggle (ex: valor por metro quadrado, iptu, etc.).
-2. Enriquecimento de Features: Utilizamos a Engenharia de Features (Ex: preço por metro quadrado) para extrair o valor preditivo máximo dos dados de localização, compensando a falta de volume com maior inteligência na modelagem.
+- Não realizamos o Data Augmentation clássico. Nossa estratégia para mitigar a falta de dados (especialmente dados históricos detalhados do DF) foi feita em duas etapas:
+    - Coleta Aumentada (Scraping): O web scraping foi essencial para aumentar o dataset em volume e em features, capturando variáveis que não estavam nas bases do Kaggle (ex: valor por metro quadrado, iptu, etc.).
+    - Enriquecimento de Features: Utilizamos a Engenharia de Features (Ex: preço por metro quadrado) para extrair o valor preditivo máximo dos dados de localização, compensando a falta de volume com maior inteligência na modelagem.
 
 ### Feature Engineering
 
