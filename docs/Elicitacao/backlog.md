@@ -50,15 +50,15 @@ Agrupa as funcionalidades que envolvam toda a parte de extração, armazenamento
 |:--:|:--:|:--:|:--:|:--:|
 |**TM02**|**EP01**|Inserir informações do imóvel|**US01**| **RF02** |
 |**TM02**|**EP02**|Visualizar imóveis vantajosos|**US02**| **RF02** |
-|**TM02**|**EP02**|Visualizar imóveis de acordo com preferências|**US03**| **RF01** |
-|**TM02**|**EP03**|Visualizar classificação de imóveis|**US04**| **RF05** |
-|**TM02**|**EP03**|Visualizar destaques chaves de cada anúncio|**US05**| **RF05** |
-|**TM03**|**EP04**|Obter preço justo de aluguel|**US06**| **RF06** |
-|**TM03**|**EP04**|Mensuração do valor do aluguel|**US07**| **RF07** |
-|**TM03**|**EP05**|Análise de imóveis|**US08**| **RF08** |
-|**TM03**|**EP06**|Comparação de preço anunciado pelo sugerido pelo modelo de I.A|**US09**| **RF09** |
-|**TM01**|**EP07**|Acesso a anúncios atualizados|**US10**| **RF10** |
-|**TM01**|**EP08**|Receber feedback sobre custo-benefício |**US11**| **RNF01** |
+|**TM02**|**EP02**|Visualizar imóveis de acordo com preferências|**US03**| **RF02** |
+|**TM02**|**EP03**|Visualizar classificação de imóveis|**US04**| **RF03** |
+|**TM02**|**EP03**|Visualizar destaques chaves de cada anúncio|**US05**| **RF010** |
+|**TM03**|**EP04**|Obter estimativa de preço justo de aluguel|**US06**| **RF01** |
+|**TM03**|**EP04**|Mensuração do valor do aluguel|**US07**| **RF01** |
+|**TM03**|**EP05**|Análise de imóveis|**US08**| **RF03** e **RF01** |
+|**TM03**|**EP06**|Comparação de preço anunciado pelo sugerido pelo modelo de I.A|**US09**| **RF03** |
+|**TM01**|**EP07**|Acesso a anúncios atualizados|**US10**| **RF09** |
+|**TM01**|**EP08**|Receber feedback sobre custo-benefício |**US11**| **RF01** |
 
 ## Bibliografia
 
