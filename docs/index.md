@@ -6,9 +6,9 @@
 
 ## **Sobre o Projeto**
 
-Este projeto apresenta o desenvolvimento de um sistema de **predição** e **precificação** de imóveis, e **feedback** sobre um imóvel específico com Inteligência Artificial, resultado da aplicação dos conceitos aprendidos na disciplina **“Tópicos Especiais de Engenharia de Software”**, ministrada pela professora **Carla Rocha**.
+Este projeto apresenta o desenvolvimento de um sistema de **precificação** de alguel em imóveis na região do Distrito Federal, resultado da aplicação dos conceitos aprendidos na disciplina **“Tópicos Especiais de Engenharia de Software”**, ministrada pela professora **Carla Rocha**.
 
-A aplicação tem como propósito criar uma plataforma inteligente capaz de estimar o valor justo de aluguel de imóveis com base em dados públicos, como localização, área construída, número de quartos e infraestrutura urbana, bem como prever quais as possíveis variações de preço de imóveis para alguma região específica e prover ao usuário um feedback sobre a relação custo x benefício de um imóvel, considerando as características deste.
+A aplicação tem como propósito criar uma plataforma inteligente capaz de prover ao usuário a busca por anúncios de alugueis em sites deste nicho e apresentar ao usuário uma lista de 5 prováveis imóveis que se encaixam nas características que este está procurando para locar, como localização, área construída, número de quartos, infraestrutura urbana e outros mais.
 
 O sistema utiliza modelos de aprendizado de máquina (Machine Learning) para aprender padrões do mercado e gerar estimativas rápidas, confiáveis e transparentes.  
 Seu objetivo é reduzir a assimetria de informação entre locadores e locatários, promovendo transparência e eficiência no mercado imobiliário.
@@ -17,11 +17,10 @@ Seu objetivo é reduzir a assimetria de informação entre locadores e locatári
 
 ## **Objetivos**
 
-- Estimar automaticamente o valor justo de aluguel;
+- Apresentar 5 anúncios de alugueis com maior compatibilidade com o usuário;
 - Fornecer comparativos de mercado por bairro e cidade;  
-- Prover um feedback estruturado e objetivo sobre o custo x benefício de um imóvel;
-- Prever a variação de valor de imóveis em determinadas regiões;
-- Democratizar o acesso à informação imobiliária.  
+- Prover um feedback estruturado e objetivo sobre o custo x benefício de um imóvel de acordo com as regras de negócio definidas;
+- Fornecer um comparativo analisando as flutuações de mercado sobre o valor de imóveis similares.
 
 ---
 
@@ -46,3 +45,4 @@ Seu objetivo é reduzir a assimetria de informação entre locadores e locatári
 | Versão | Data | Descrição | Autor | Revisor
 | :-: | :-: | :-: | :-: | :-:|
 |`1.0`| 23/09/2025 | Criação do documento | [Elias Oliveira](https://github.com/EliasOliver21) | []()|'
+|`1.0`| 19/10/2025 | Ajuste nos objetivos do Projeto | [Elias Oliveira](https://github.com/EliasOliver21) | []()|'
