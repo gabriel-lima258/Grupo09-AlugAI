@@ -14,7 +14,6 @@ nav:
       - Histórias de Usuário: Elicitacao/historias_de_usuario.md
     - Artefatos: "Design_thinking/design_thinking.md"
     - Mapeamento de Dados: "Design_thinking/mapeamento_dados.md"
-    - História do Usuário: "Design_thinking/us.md"
   - Arquitetura:
     - Pipeline de Dados: "Arquitetura/pipeline_dados.md"
 
