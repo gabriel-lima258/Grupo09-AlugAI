@@ -1,12 +1,3 @@
-## Arquitetura de Dados
-
-O projeto **PrediAluguel** é fundamentado em um *pipeline* de Machine Learning (MLOps) desenhado para garantir a precisão contínua da precificação de
-alugéis em Brasília. Nossa arquitetura se concentra em um fluxo robusto de dados estruturados, desde a coluna e engenharia de *features* até a disponibilização do modelo via API para sistema web.
-
-<p style="text-align:center"><b><a id="tab_1" style="visibility:hidden;"></a>Figura 1</b> – Diagrama da Arquitetura</p>
-
-![Diagrama da Arquitetura](../assets/arquitetura/arquitetura_dados.PNG)
-
 ## Engenharia de Dados
 
 
@@ -16,13 +7,10 @@ alugéis em Brasília. Nossa arquitetura se concentra em um fluxo robusto de dad
 
 - O projeto será automatizado no futuro utilizando DAG's do Airflow quinzenalmente/mensalmente para atualização dos dados do modelo de predição dos novos imóveis disponibilizados nos portais de aluguel de imóveis.
 
-### Técnicas de Amostragem
-
-- Não foi utilizado técnicas de amostragem, visto que nosso MVP é focado no público específico de Brasília.
 
 ### Rotulação e Balanceamento
 
-- Não houve rotulação manual. O problema de Classificação (Custo-Benefício) é resolvido através da criação da Métrica Estatística/Regras de Negócio. O alvo principal (rent_amount) é intrinsecamente rotulado nos dados brutos. O modelo de Classificação é substituído por um Motor de Regras baseado no Modelo de Regressão.
+- Não houve rotulação manual, o problema de Classificação (Custo-Benefício) é resolvido através da criação da Métrica Estatística/Regras de Negócio. O alvo principal (rent_amount) é intrinsecamente rotulado nos dados brutos. O modelo de Classificação é substituído por um Motor de Regras baseado no Modelo de Regressão.
 
 ### Balanceamento de Classes
 

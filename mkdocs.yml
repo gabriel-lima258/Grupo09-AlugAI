@@ -15,7 +15,8 @@ nav:
     - Artefatos: "Design_thinking/design_thinking.md"
     - Mapeamento de Dados: "Design_thinking/mapeamento_dados.md"
   - Arquitetura:
-    - Pipeline de Dados: "Arquitetura/pipeline_dados.md"
+    - Arquitetura de Dados: "Arquitetura/arquitetura_dados.md"
+    - Engenharia de Dados: "Arquitetura/engenharia_dados.md"
 
 extra_css:
   - stylesheets/extra.css
