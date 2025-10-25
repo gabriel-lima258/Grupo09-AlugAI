@@ -5,7 +5,7 @@ alugéis em Brasília. Nossa arquitetura se concentra em um fluxo robusto de dad
 
 <p style="text-align:center"><b><a id="tab_1" style="visibility:hidden;"></a>Figura 1</b> – Diagrama da Arquitetura</p>
 
-![Diagrama da Arquitetura](../assets/arquitetura/arquitetura_macro.JPG)
+![Diagrama da Arquitetura](../assets/arquitetura/arquitetura_dados.PNG)
 
 ## Engenharia de Dados
 
