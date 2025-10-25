@@ -84,4 +84,4 @@ AlugAi/
 ## Histórico de versões
 | Versão | Data | Descrição | Autor | Revisor
 | :-: | :-: | :-: | :-: | :-:|
-|`1.0`| 25/10/2025 | Criação do documento | [Mateus]() | |
+|`1.0`| 25/10/2025 | Criação do documento de Arquitetura de Dados | [Mateus]() | |

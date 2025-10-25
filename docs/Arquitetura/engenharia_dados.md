@@ -37,5 +37,5 @@
 ## Histórico de versões
 | Versão | Data | Descrição | Autor | Revisor
 | :-: | :-: | :-: | :-: | :-:|
-|`1.0`| 19/10/2025 | Criação do documento | [Mateus]() | |
-|`1.1`| 25/10/2025 | Criação do documento | [Mateus]() | |
+|`1.0`| 19/10/2025 | Criação do documento de Engenharia de Dados| [Mateus]() | |
+|`1.1`| 25/10/2025 | Remoção Técniccas de Amostragem | [Mateus]() | |
