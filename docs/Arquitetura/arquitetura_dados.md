@@ -31,24 +31,26 @@ alugéis em Brasília. Nossa arquitetura se concentra em um fluxo robusto de dad
 
 - Cada fonte (Kaggle, DF Imóveis, Zap Imóveis, OLX) possui uma pasta própria dentro do diretório data/raw/.
 
-- Os arquivos seguem uma convenção de nomenclatura padronizada, incluindo o nome da fonte e a data de extração, no formato YYYY-MM-DD.
+- Os arquivos seguem uma convenção de nomenclatura padronizada, incluindo o nome da fonte e a data de extração, no formato YYYYMMDD.
 
 - Essa estrutura facilita o versionamento, auditoria e futura migração para o Amazon S3.
 
+```
 AlugAi/
 │
 ├── data/
-│   ├── raw/                      # Dados brutos (Data Lake local)
-│   │   ├── kaggle/
-│   │   │   ├── kaggle_alugueis_20251001.csv
-│   │   │   └── kaggle_alugueis_20251002.csv
-│   │   ├── dfimoveis/
-│   │   │   ├── dfimoveis_20251024.csv
-│   │   │   └── dfimoveis_20251124.csv
-│   │   ├── zapimoveis/
-│   │   │   └── zapimoveis_20251024.csv
-│   │   └── olx/
-│   │       └── olx_20251024.csv
+│   ├── raw/                      # Dados brutos (Data Lake local)
+│   │   ├── kaggle/
+│   │   │   ├── kaggle_alugueis_20251001.csv
+│   │   │   └── kaggle_alugueis_20251002.csv
+│   │   ├── dfimoveis/
+│   │   │   ├── dfimoveis_20251024.csv
+│   │   │   └── dfimoveis_20251124.csv
+│   │   ├── zapimoveis/
+│   │   │   └── zapimoveis_20251024.csv
+│   │   └── olx/
+│   │       └── olx_20251024.csv
+```
 
 ### Tratamento e Qualidade dos dados
 
