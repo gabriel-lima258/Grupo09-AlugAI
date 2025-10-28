@@ -1,4 +1,4 @@
-<center><h1> PrediAluguel</h1></center>
+<center><h1> AlugAI</h1></center>
 
 <font size="2"><p style="text-align: center"> Figura 1 - Logo da aplicação. </p></font>
 <center><img style="border: 1px solid white; border-radius: 10%" src="assets/logo_agente.png" width = 40%></center>

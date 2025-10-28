@@ -2,7 +2,7 @@
 
 ## **1. Introdução**
 
-O presente documento tem como objetivo apresentar os **requisitos funcionais e não funcionais** do sistema **PrediAluguel**, utilizando a técnica de análise documental. Para a elicitação destes requisitos, foram analisados os artefatos produzidos por meio de brainstorming com o framework [Design Thinking](design_thinking.md)
+O presente documento tem como objetivo apresentar os **requisitos funcionais e não funcionais** do sistema **AlugAI**, utilizando a técnica de análise documental. Para a elicitação destes requisitos, foram analisados os artefatos produzidos por meio de brainstorming com o framework [Design Thinking](design_thinking.md)
 
 Os requisitos descritos a seguir foram elaborados com foco em **funcionalidade, precisão, desempenho e usabilidade**, garantindo que a solução atenda às expectativas do público e às boas práticas de engenharia de software.
 
@@ -46,14 +46,14 @@ Os requisitos descritos a seguir foram elaborados com foco em **funcionalidade, 
 
 ## **4. Considerações Finais**
 
-Os requisitos apresentados constituem a **base para o desenvolvimento e validação** do sistema **PrediAluguel**.  
+Os requisitos apresentados constituem a **base para o desenvolvimento e validação** do sistema **AlugAI**.  
 Eles garantem que a aplicação não apenas forneça previsões precisas, mas também **entregue valor real ao usuário**, com foco em:
 
 - **Transparência:** explicações claras sobre como o valor é estimado.  
 - **Confiabilidade:** uso de dados públicos e fontes verificadas.  
 - **Acessibilidade:** interface intuitiva e disponível para todos os públicos.  
 
-O cumprimento destes requisitos assegura que o **PrediAluguel** se destaque como uma solução tecnológica relevante e socialmente útil no contexto do mercado imobiliário brasileiro.
+O cumprimento destes requisitos assegura que o **AlugAI** se destaque como uma solução tecnológica relevante e socialmente útil no contexto do mercado imobiliário brasileiro.
 
 ---
 

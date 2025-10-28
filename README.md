@@ -1,8 +1,8 @@
 <div align='center'>
-  <h1>PrediAluguel</h1>
+  <h1>AlugAI</h1>
 </div>
 <div align="center">
-  <img src="docs/assets/logo_agente.png" alt="Logo PrediAluguel" style="max-width: 25%; height: auto; margin-bottom: 15px;">
+  <img src="docs/assets/logo_agente.png" alt="Logo AlugAI" style="max-width: 25%; height: auto; margin-bottom: 15px;">
   <p><strong>Figura 1:</strong> Logo da aplicação</p>
   <p><em>Fonte: <a href="https://www.flaticon.com/br/" target="_blank">Flaticon</a>, 2025</em></p>
 </div>
@@ -11,7 +11,7 @@
 
 ## Sobre o Projeto
 
-O **PrediAluguel** é uma aplicação web com integração de um modelo de Inteligência Artificial, que possibilita estimar o valor justo de aluguel de imóveis e visualizar comparações e análises sobre estes, com base em dados públicos e padrões reais do mercado.
+O **AlugAI** é uma aplicação web com integração de um modelo de Inteligência Artificial, que possibilita estimar o valor justo de aluguel de imóveis e visualizar comparações e análises sobre estes, com base em dados públicos e padrões reais do mercado.
 
 A iniciativa nasce com o propósito de reduzir a assimetria de informações no setor imobiliário, prover uma facilitação da análise do custo x benefício de um imóvel. Com isso, o sistema promove a transparência, acessibilidade, eficiência para locadores e locatários.
 
@@ -33,7 +33,7 @@ A iniciativa nasce com o propósito de reduzir a assimetria de informações no 
 
 A documentação oficial do projeto (incluindo os artefatos do framework PIM-Go e o Machine Learning Canvas) está disponível no link abaixo:
 
- **[Acesse a Documentação do PrediAluguel](https://unb-sistemas-de-machine-learning.github.io/Grupo09-PrediAluguel/)**  
+ **[Acesse a Documentação do AlugAI](https://unb-sistemas-de-machine-learning.github.io/Grupo09-AlugAI/)**  
 
 ---
 

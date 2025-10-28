@@ -2,7 +2,7 @@
 
 ## **1. Introdução**
 
-Esta seção define os **Requisitos de Machine Learning (RML)** do projeto **PrediAluguel**, especificando o comportamento esperado dos modelos de IA utilizados para **predizer valores de aluguel de imóveis residenciais**.  
+Esta seção define os **Requisitos de Machine Learning (RML)** do projeto **AlugAI**, especificando o comportamento esperado dos modelos de IA utilizados para **predizer valores de aluguel de imóveis residenciais**.  
 
 Os requisitos a seguir foram elaborados considerando **aspectos técnicos, éticos e operacionais** do ciclo de vida de aprendizado de máquina — desde a coleta de dados até a avaliação contínua do modelo em produção.
 
@@ -73,7 +73,7 @@ Os requisitos a seguir foram elaborados considerando **aspectos técnicos, étic
 
 ## **6. Considerações Finais**
 
-Os Requisitos de Machine Learning aqui descritos garantem que o **PrediAluguel** opere de forma **precisa, ética e escalável**, assegurando:
+Os Requisitos de Machine Learning aqui descritos garantem que o **AlugAI** opere de forma **precisa, ética e escalável**, assegurando:
 
 - **Confiabilidade técnica**, com modelos testados e reproduzíveis;  
 - **Transparência**, com explicações compreensíveis sobre o raciocínio da IA;  
