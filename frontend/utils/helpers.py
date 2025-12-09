@@ -7,7 +7,7 @@ import streamlit as st
 from datetime import datetime
 from typing import Dict, List, Optional
 
-# Dados mock para desenvolvimento (será substituído por dados reais)
+# Dados padrão (serão substituídos por dados da API)
 BAIRROS_DF = [
     "Asa Norte", "Asa Sul", "Águas Claras", "Taguatinga", "Ceilândia",
     "Guará", "Sobradinho", "Planaltina", "Gama", "Santa Maria",
@@ -17,8 +17,37 @@ BAIRROS_DF = [
 ]
 
 TIPOS_IMOVEL = [
-    "Apartamento", "Casa", "Cobertura", "Studio", "Kitnet"
+    "UNIT", "APARTMENT", "HOUSE"
 ]
+
+def get_api_data(api_url: str = None):
+    """Busca dados únicos da API"""
+    import requests
+    import os
+    
+    # Usar variável de ambiente ou padrão
+    if api_url is None:
+        api_url = os.getenv('API_URL', 'http://localhost:5020')
+    
+    try:
+        # Buscar valores únicos
+        response = requests.get(f"{api_url}/data/unique-values", timeout=5)
+        if response.status_code == 200:
+            data = response.json()
+            return {
+                'cities': data.get('cities', []),
+                'neighborhoods': data.get('neighborhoods', []),
+                'property_types': data.get('property_types', [])
+            }
+    except:
+        pass
+    
+    # Fallback para valores padrão
+    return {
+        'cities': [],
+        'neighborhoods': BAIRROS_DF,
+        'property_types': TIPOS_IMOVEL
+    }
 
 def format_currency(value: float) -> str:
     """Formata um valor numérico como moeda brasileira"""
@@ -176,4 +205,7 @@ def generate_mock_properties(count: int = 5) -> List[Dict]:
         })
     
     return properties
+
+
+
 

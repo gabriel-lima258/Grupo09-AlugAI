@@ -1,2 +1,5 @@
 # Utilitários do AlugAI
 
+
+
+

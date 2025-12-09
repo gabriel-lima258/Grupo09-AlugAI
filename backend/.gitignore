@@ -23,8 +23,10 @@ wheels/
 .installed.cfg
 *.egg
 
-# Streamlit
-.streamlit/
+# Modelos
+models/*.pkl
+models/*.json
+!models/.gitkeep
 
 # IDE
 .vscode/
@@ -39,13 +41,5 @@ Thumbs.db
 
 # Logs
 *.log
-
-# Data
-*.csv
-*.parquet
-*.db
-*.sqlite
-
-
 
 

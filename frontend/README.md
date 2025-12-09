@@ -76,3 +76,6 @@ frontend/
 
 Equipe AlugAI - UnB 2025
 
+
+
+

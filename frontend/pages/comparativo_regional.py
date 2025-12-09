@@ -14,6 +14,7 @@ current_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(current_dir))
 
 from utils import config, helpers
+import requests
 
 # Configuração da página
 config.set_page_config()
@@ -24,6 +25,25 @@ if 'consultas' not in st.session_state:
     st.session_state.consultas = []
 if 'favoritos' not in st.session_state:
     st.session_state.favoritos = []
+
+# Buscar dados únicos da API - suporta variável de ambiente para deploy
+import os
+API_URL = os.getenv('API_URL', 'http://localhost:5020')
+if 'api_data' not in st.session_state:
+    try:
+        response = requests.get(f"{API_URL}/data/unique-values", timeout=5)
+        if response.status_code == 200:
+            st.session_state.api_data = response.json()
+        else:
+            st.session_state.api_data = None
+    except:
+        st.session_state.api_data = None
+
+# Usar dados da API ou fallback
+if st.session_state.api_data:
+    neighborhoods_list = st.session_state.api_data.get('neighborhoods', helpers.BAIRROS_DF)
+else:
+    neighborhoods_list = helpers.BAIRROS_DF
 
 # Sidebar comum
 with st.sidebar:
@@ -61,7 +81,7 @@ def show():
         
         # Dados mock para o mapa
         map_data = []
-        for bairro in helpers.BAIRROS_DF[:15]:  # Limitar para visualização
+        for bairro in neighborhoods_list[:15]:  # Limitar para visualização
             import random
             avg_price = random.randint(2000, 4500)
             map_data.append({
@@ -111,7 +131,7 @@ def show():
         
         # Dados mock
         comparison_data = []
-        for bairro in helpers.BAIRROS_DF[:10]:
+        for bairro in neighborhoods_list[:10]:
             import random
             comparison_data.append({
                 "Bairro": bairro,
@@ -175,7 +195,8 @@ def show():
         st.markdown("### 🏘️ Comparativo por Tipo de Imóvel")
         
         tipo_data = []
-        for tipo in helpers.TIPOS_IMOVEL:
+        property_types_list = st.session_state.api_data.get('property_types', ['UNIT']) if st.session_state.api_data else ['UNIT']
+        for tipo in property_types_list:
             import random
             tipo_data.append({
                 "Tipo": tipo,
@@ -206,8 +227,8 @@ def show():
         with col1:
             selected_bairros = st.multiselect(
                 "Selecione os Bairros",
-                helpers.BAIRROS_DF,
-                default=helpers.BAIRROS_DF[:5]
+                neighborhoods_list,
+                default=neighborhoods_list[:5] if len(neighborhoods_list) >= 5 else neighborhoods_list
             )
         
         with col2:
@@ -218,7 +239,7 @@ def show():
         
         # Dados da tabela
         table_data = []
-        for bairro in (selected_bairros if selected_bairros else helpers.BAIRROS_DF):
+        for bairro in (selected_bairros if selected_bairros else neighborhoods_list):
             import random
             table_data.append({
                 "Bairro": bairro,

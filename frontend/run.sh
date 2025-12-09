@@ -21,6 +21,16 @@ fi
 echo "🚀 Iniciando aplicativo Streamlit..."
 echo "📱 Acesse: http://localhost:8501"
 echo ""
+echo "⚠️  IMPORTANTE: Use 'streamlit run app.py', não 'python3 app.py'"
+echo ""
+
+# Verificar se streamlit está instalado
+if ! command -v streamlit &> /dev/null; then
+    echo "❌ Streamlit não encontrado. Instalando..."
+    pip install streamlit
+fi
 
 streamlit run app.py
+
+
 

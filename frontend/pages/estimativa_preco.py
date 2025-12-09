@@ -13,6 +13,7 @@ current_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(current_dir))
 
 from utils import config, helpers
+import requests
 
 # Configuração da página
 config.set_page_config()
@@ -23,6 +24,27 @@ if 'consultas' not in st.session_state:
     st.session_state.consultas = []
 if 'favoritos' not in st.session_state:
     st.session_state.favoritos = []
+
+# Buscar dados únicos da API - suporta variável de ambiente para deploy
+import os
+API_URL = os.getenv('API_URL', 'http://localhost:5020')
+if 'api_data' not in st.session_state:
+    try:
+        response = requests.get(f"{API_URL}/data/unique-values", timeout=5)
+        if response.status_code == 200:
+            st.session_state.api_data = response.json()
+        else:
+            st.session_state.api_data = None
+    except:
+        st.session_state.api_data = None
+
+# Usar dados da API ou fallback
+if st.session_state.api_data:
+    neighborhoods_list = st.session_state.api_data.get('neighborhoods', helpers.BAIRROS_DF)
+    property_types_list = st.session_state.api_data.get('property_types', helpers.TIPOS_IMOVEL)
+else:
+    neighborhoods_list = helpers.BAIRROS_DF
+    property_types_list = helpers.TIPOS_IMOVEL
 
 # Sidebar comum
 with st.sidebar:
@@ -55,13 +77,13 @@ def show():
         with col1:
             property_type = st.selectbox(
                 "Tipo de Imóvel *",
-                helpers.TIPOS_IMOVEL,
+                property_types_list,
                 help="Tipo do imóvel"
             )
             
             neighborhood = st.selectbox(
                 "Bairro *",
-                helpers.BAIRROS_DF,
+                neighborhoods_list,
                 help="Bairro onde o imóvel está localizado"
             )
             
@@ -157,23 +179,91 @@ def show():
         }
         helpers.save_query(query_data)
         
-        # Simular estimativa (será substituído por chamada ao modelo real)
+        # Chamar API do backend para obter estimativa real
         with st.spinner("🤖 Processando com modelo de IA..."):
-            import random
+            import requests
             
-            # Estimativa baseada em regras simples (mock)
-            base_price = area * 30  # R$ 30 por m² base
-            base_price += rooms * 200
-            base_price += bathrooms * 150
-            base_price += parking_spaces * 100
-            base_price += hoa * 0.3
+            # Inicializar variáveis
+            estimated_price = 0
+            price_per_sqm = 0
+            model_version = None
+            model_metrics = {}
             
-            if furniture == "Sim":
-                base_price *= 1.15
-            
-            # Adicionar variação aleatória para simular modelo
-            estimated_price = base_price * random.uniform(0.9, 1.1)
-            estimated_price = round(estimated_price, 2)
+            try:
+                # Extrair city do neighborhood (se houver formato "City - Neighborhood")
+                city = neighborhood
+                if " - " in neighborhood:
+                    parts = neighborhood.split(" - ")
+                    city = parts[0]
+                    neighborhood_name = parts[1] if len(parts) > 1 else neighborhood
+                else:
+                    neighborhood_name = neighborhood
+                    # Tentar obter city da API se disponível
+                    if st.session_state.api_data and st.session_state.api_data.get('cities'):
+                        # Usar primeira cidade disponível como padrão
+                        city = st.session_state.api_data['cities'][0] if st.session_state.api_data['cities'] else neighborhood
+                    else:
+                        city = neighborhood
+                
+                # Preparar dados para a API
+                api_data = {
+                    "area": float(area),
+                    "bedrooms": int(rooms),
+                    "bathrooms": int(bathrooms),
+                    "parking_spaces": int(parking_spaces),
+                    "furnished": furniture == "Sim",
+                    "hoa": float(hoa),
+                    "property_type": property_type,
+                    "city": city,
+                    "neighborhood": neighborhood_name,
+                    "suites": 0  # Padrão, pode ser adicionado ao formulário depois
+                }
+                
+                # Fazer requisição à API
+                response = requests.post(f"{API_URL}/predict", json=api_data, timeout=10)
+                
+                if response.status_code == 200:
+                    result = response.json()
+                    estimated_price = result.get('predicted_price', 0)
+                    price_per_sqm = result.get('price_per_sqm', 0)
+                    model_version = result.get('model_version', 'unknown')
+                    model_metrics = result.get('model_metrics', {})
+                    
+                    # Se price_per_sqm não veio da API, calcular
+                    if price_per_sqm == 0 and area > 0:
+                        price_per_sqm = estimated_price / area
+                else:
+                    # Fallback para estimativa simples se API falhar
+                    st.warning("⚠️ API não disponível. Usando estimativa simplificada.")
+                    base_price = area * 30
+                    base_price += rooms * 200
+                    base_price += bathrooms * 150
+                    base_price += parking_spaces * 100
+                    base_price += hoa * 0.3
+                    if furniture == "Sim":
+                        base_price *= 1.15
+                    estimated_price = base_price
+                    price_per_sqm = estimated_price / area if area > 0 else 0
+                    model_version = None
+                    model_metrics = {}
+                    
+            except requests.exceptions.RequestException as e:
+                # Fallback se API não estiver disponível
+                st.warning(f"⚠️ Não foi possível conectar à API: {str(e)}")
+                st.info("💡 Certifique-se de que a API está rodando em http://localhost:5020")
+                
+                # Estimativa simplificada como fallback
+                base_price = area * 30
+                base_price += rooms * 200
+                base_price += bathrooms * 150
+                base_price += parking_spaces * 100
+                base_price += hoa * 0.3
+                if furniture == "Sim":
+                    base_price *= 1.15
+                estimated_price = base_price
+                price_per_sqm = estimated_price / area if area > 0 else 0
+                model_version = None
+                model_metrics = {}
             
             # Exibir resultados
             st.success("✅ Estimativa gerada com sucesso!")
@@ -188,7 +278,13 @@ def show():
                     help="Valor estimado pelo modelo de IA"
                 )
             
-            price_per_sqm = helpers.calculate_price_per_sqm(estimated_price, area)
+            with col2:
+                st.metric(
+                    "📐 Preço por m²",
+                    helpers.format_currency(price_per_sqm),
+                    help="Preço por metro quadrado"
+                )
+            
             with col2:
                 st.metric(
                     "📐 Preço por m²",
@@ -245,10 +341,15 @@ def show():
             # Explicabilidade do modelo
             st.markdown("### 🔍 Fatores que Influenciaram a Estimativa")
             
+            # Se temos métricas da API, usar informações reais
+            if model_version:
+                st.info(f"📊 Modelo: versão {model_version} | MAE: R$ {model_metrics.get('mae', 0):.2f} | R²: {model_metrics.get('r2', 0):.4f}")
+            
             factors = [
                 {"name": "Área do Imóvel", "impact": "Alto", "value": f"{area} m²"},
                 {"name": "Localização (Bairro)", "impact": "Alto", "value": neighborhood},
                 {"name": "Número de Quartos", "impact": "Médio", "value": f"{rooms} quartos"},
+                {"name": "Número de Banheiros", "impact": "Médio", "value": f"{bathrooms} banheiros"},
                 {"name": "Condomínio", "impact": "Médio", "value": helpers.format_currency(hoa)},
                 {"name": "Mobiliado", "impact": "Baixo", "value": furniture},
             ]

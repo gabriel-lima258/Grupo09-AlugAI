@@ -1,6 +1,38 @@
-venv
-.venv
+# Python
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Logs
+*.log
+/tmp/
+*.log.*
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Modelos ML (descomente se não quiser versionar)
+# backend/models/*.pkl
+# backend/models/*.json
+# !backend/models/.gitkeep
+
+# Dados sensíveis
 .env
-__pycache__
-venv copy
-site
+*.env
+secrets/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Streamlit
+.streamlit/secrets.toml
