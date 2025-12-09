@@ -2,8 +2,9 @@ services:
   - type: web
     name: alugai-api
     env: python
+    rootDir: backend
     buildCommand: pip install -r requirements.txt
-    startCommand: cd api && python app.py
+    startCommand: python api/app.py
     envVars:
       - key: PORT
         value: 5020
