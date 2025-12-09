@@ -167,8 +167,8 @@ def show():
     
     st.markdown("---")
     
-    # Carregar todos os imóveis automaticamente (sem precisar clicar em buscar)
-    if 'all_properties' not in st.session_state or buscar_button:
+    # Carregar imóveis APENAS quando o usuário clicar em buscar (não automaticamente)
+    if buscar_button:
         with st.spinner("🔄 Carregando imóveis do dataset..."):
             try:
                 # Construir parâmetros de filtro
@@ -281,36 +281,50 @@ def show():
             
             # Botões de ação
             col1, col2, col3 = st.columns([1, 1, 1])
+            prop_id = prop.get('id', 0)
+            
+            # Cache de predições para evitar requisições repetidas
+            prediction_cache_key = f"prediction_{prop_id}"
+            
             with col1:
-                if st.button(f"💰 Ver Detalhes", key=f"details_{prop.get('id', 0)}"):
-                    # Obter estimativa real do modelo
-                    try:
-                        predict_data = {
-                            "area": prop.get('area', 0),
-                            "bedrooms": prop.get('bedrooms', 0),
-                            "bathrooms": prop.get('bathrooms', 1),
-                            "parking_spaces": prop.get('parking_spaces', 0),
-                            "furnished": prop.get('furnished', False),
-                            "hoa": prop.get('hoa', 0),
-                            "property_type": prop.get('property_type', 'Apartamento'),
-                            "city": prop.get('city', 'Brasília'),
-                            "neighborhood": prop.get('neighborhood', ''),
-                            "suites": 0
-                        }
-                        
-                        predict_response = requests.post(
-                            f"{API_URL}/predict",
-                            json=predict_data,
-                            timeout=5
-                        )
-                        
-                        if predict_response.status_code == 200:
-                            predict_result = predict_response.json()
-                            estimated_price = predict_result.get('predicted_price', prop.get('rent_amount', 0))
-                        else:
-                            estimated_price = prop.get('rent_amount', 0)
-                    except:
-                        estimated_price = prop.get('rent_amount', 0)
+                if st.button(f"💰 Ver Detalhes", key=f"details_{prop_id}"):
+                    # Verificar cache primeiro
+                    if prediction_cache_key not in st.session_state:
+                        # Obter estimativa real do modelo apenas se não estiver em cache
+                        with st.spinner("🤖 Calculando estimativa..."):
+                            try:
+                                predict_data = {
+                                    "area": prop.get('area', 0),
+                                    "bedrooms": prop.get('bedrooms', 0),
+                                    "bathrooms": prop.get('bathrooms', 1),
+                                    "parking_spaces": prop.get('parking_spaces', 0),
+                                    "furnished": prop.get('furnished', False),
+                                    "hoa": prop.get('hoa', 0),
+                                    "property_type": prop.get('property_type', 'Apartamento'),
+                                    "city": prop.get('city', 'Brasília'),
+                                    "neighborhood": prop.get('neighborhood', ''),
+                                    "suites": 0
+                                }
+                                
+                                predict_response = requests.post(
+                                    f"{API_URL}/predict",
+                                    json=predict_data,
+                                    timeout=5
+                                )
+                                
+                                if predict_response.status_code == 200:
+                                    predict_result = predict_response.json()
+                                    estimated_price = predict_result.get('predicted_price', prop.get('rent_amount', 0))
+                                else:
+                                    estimated_price = prop.get('rent_amount', 0)
+                                
+                                # Salvar em cache
+                                st.session_state[prediction_cache_key] = estimated_price
+                            except:
+                                estimated_price = prop.get('rent_amount', 0)
+                                st.session_state[prediction_cache_key] = estimated_price
+                    else:
+                        estimated_price = st.session_state[prediction_cache_key]
                     
                     diff = prop.get('rent_amount', 0) - estimated_price
                     diff_pct = (diff / estimated_price * 100) if estimated_price > 0 else 0
@@ -330,12 +344,12 @@ def show():
                     - Diferença: {helpers.format_currency(abs(diff))} ({diff_pct:+.1f}%)
                     """)
             with col2:
-                if st.button(f"📊 Comparar", key=f"compare_{prop.get('id', 0)}"):
-                    diff = prop.get('rent_amount', 0) - prop.get('estimated_price', 0)
-                    diff_pct = (diff / prop.get('estimated_price', 1)) * 100 if prop.get('estimated_price', 0) > 0 else 0
+                if st.button(f"📊 Comparar", key=f"compare_{prop_id}"):
+                    estimated = st.session_state.get(prediction_cache_key, prop.get('estimated_price', prop.get('rent_amount', 0)))
+                    diff = prop.get('rent_amount', 0) - estimated
+                    diff_pct = (diff / estimated * 100) if estimated > 0 else 0
                     st.info(f"Diferença: {helpers.format_currency(abs(diff))} ({diff_pct:+.1f}%)")
             with col3:
-                prop_id = prop.get('id', 0)
                 if st.button(f"⭐ Favoritar", key=f"fav_{prop_id}"):
                     if prop_id not in st.session_state.favoritos:
                         st.session_state.favoritos.append(prop_id)
@@ -437,38 +451,19 @@ def show():
                        "- Ajuste o número de quartos ou área")
     
     else:
-        # Mensagem inicial - carregar imóveis automaticamente apenas se não tiver cache
+        # Mensagem inicial - não carregar automaticamente, apenas quando o usuário clicar em buscar
         if 'all_properties' not in st.session_state:
-            with st.spinner("🔄 Carregando imóveis do dataset..."):
-                try:
-                    # Buscar imóveis sem filtros (limitar a 200 para performance)
-                    response = requests.get(f"{API_URL}/data/properties", params={'limit': 200}, timeout=30)
-                    
-                    if response.status_code == 200:
-                        data = response.json()
-                        properties = data.get('properties', [])
-                        total = data.get('total', 0)
-                        
-                        # Usar preço anunciado como estimativa inicial
-                        for prop in properties:
-                            prop['estimated_price'] = prop.get('rent_amount', 0)
-                        
-                        st.session_state.all_properties = properties
-                        st.session_state.total_properties = total
-                        st.session_state.filter_cache_key = "initial_load"
-                        st.rerun()
-                    else:
-                        st.error(f"Erro ao buscar imóveis: {response.status_code}")
-                except requests.exceptions.RequestException as e:
-                    st.error(f"Erro ao conectar com a API: {str(e)}")
-                    st.info(f"💡 Certifique-se de que a API está rodando em {API_URL}")
-        
-        if 'all_properties' in st.session_state and len(st.session_state.all_properties) > 0:
+            st.info("👆 **Use os filtros acima e clique em 'Buscar Imóveis' para ver os imóveis disponíveis!**")
+            st.markdown("""
+            ### 💡 Como usar:
+            1. **Ajuste os filtros** acima (opcional)
+            2. **Clique em 'Buscar Imóveis'** para ver os resultados
+            3. **Use 'Ver Detalhes'** em qualquer imóvel para obter estimativa de preço do modelo
+            """)
+        elif len(st.session_state.all_properties) > 0:
             total = st.session_state.get('total_properties', len(st.session_state.all_properties))
             st.success(f"✅ **{len(st.session_state.all_properties)} imóveis** carregados (de {total} total no dataset)")
-            st.info("💡 Use os filtros acima para refinar sua busca ou clique em 'Buscar Imóveis' para aplicar os filtros!")
-        else:
-            st.info("👆 **Aguardando carregamento...** Os imóveis serão exibidos em breve!")
+            st.info("💡 Use os filtros acima para refinar sua busca ou clique em 'Buscar Imóveis' novamente para aplicar novos filtros!")
 
 # Executar quando o arquivo é executado diretamente pelo Streamlit
 show()
