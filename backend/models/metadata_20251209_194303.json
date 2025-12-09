@@ -1,0 +1,106 @@
+{
+  "version": "20251209_194303",
+  "timestamp": "2025-12-09T19:43:03.411943",
+  "metrics": {
+    "MAE": 53.282676696777344,
+    "RMSE": 113.41559275376336,
+    "R2": 0.9838906526565552,
+    "MAE_PCT": 3.5506278341030164,
+    "mean_actual": 1500.6550724637682,
+    "mean_predicted": 1499.5426025390625
+  },
+  "feature_names": [
+    "area",
+    "bedrooms",
+    "bathrooms",
+    "parking_spaces",
+    "hoa",
+    "furnished",
+    "suites",
+    "price_per_sqm",
+    "property_type_Casa",
+    "property_type_Garagem",
+    "property_type_Hotel-Flat",
+    "property_type_Kitnet",
+    "property_type_Loja",
+    "property_type_Lote",
+    "property_type_Rural",
+    "property_type_Sala",
+    "city_encoded",
+    "neighborhood_encoded"
+  ],
+  "feature_importance": [
+    [
+      "price_per_sqm",
+      0.22763226926326752
+    ],
+    [
+      "area",
+      0.2007032185792923
+    ],
+    [
+      "bedrooms",
+      0.14619414508342743
+    ],
+    [
+      "property_type_Hotel-Flat",
+      0.10630160570144653
+    ],
+    [
+      "neighborhood_encoded",
+      0.07703851163387299
+    ],
+    [
+      "property_type_Kitnet",
+      0.06960991024971008
+    ],
+    [
+      "property_type_Garagem",
+      0.05725635215640068
+    ],
+    [
+      "property_type_Rural",
+      0.04504479840397835
+    ],
+    [
+      "property_type_Sala",
+      0.03511940687894821
+    ],
+    [
+      "property_type_Casa",
+      0.016856037080287933
+    ],
+    [
+      "property_type_Loja",
+      0.0165395587682724
+    ],
+    [
+      "property_type_Lote",
+      0.001704225316643715
+    ],
+    [
+      "bathrooms",
+      0.0
+    ],
+    [
+      "parking_spaces",
+      0.0
+    ],
+    [
+      "hoa",
+      0.0
+    ],
+    [
+      "furnished",
+      0.0
+    ],
+    [
+      "suites",
+      0.0
+    ],
+    [
+      "city_encoded",
+      0.0
+    ]
+  ]
+}

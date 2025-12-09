@@ -1,0 +1,86 @@
+{
+  "encoding_maps": {
+    "city_encoding": {
+      "Brasília": 1472.1521360069746
+    },
+    "neighborhood_encoding": {
+      "Outros": 1030.7692307692307,
+      "aguas claras": 1521.1489361702127,
+      "areal": 847.0370370370371,
+      "asa norte": 1594.618887015177,
+      "asa sul": 2178.242718446602,
+      "ceilandia": 813.0555555555555,
+      "cruzeiro": 1569.1860465116279,
+      "gama": 1329.2857142857142,
+      "guara i": 1208.125,
+      "guara ii": 1357.2815533980583,
+      "jardim botanico": 1999.1666666666667,
+      "lago norte": 1417.4273504273503,
+      "lucio costa": 1213.4285714285713,
+      "mangueiral": 1558.4,
+      "noroeste": 2801.4285714285716,
+      "nucleo bandeirante": 787.8947368421053,
+      "octogonal": 2569.230769230769,
+      "paranoa": 1005.0,
+      "park sul": 2187.6969696969695,
+      "recanto das emas": 980.7692307692307,
+      "riacho fundo": 981.5,
+      "samambaia": 962.4567901234568,
+      "santa maria": 738.5714285714286,
+      "sobradinho": 1118.0,
+      "sudoeste": 1514.6311475409836,
+      "taguatinga": 1005.7446808510638,
+      "vicente pires": 926.2962962962963
+    },
+    "mean_rent": 1472.1521360069746
+  },
+  "unique_values": {
+    "cities": [
+      "Brasília"
+    ],
+    "neighborhoods": [
+      "aguas claras",
+      "areal",
+      "asa norte",
+      "asa sul",
+      "candangolandia",
+      "ceilandia",
+      "cruzeiro",
+      "gama",
+      "guara i",
+      "guara ii",
+      "jardim botanico",
+      "lago norte",
+      "lago sul",
+      "lucio costa",
+      "mangueiral",
+      "noroeste",
+      "nucleo bandeirante",
+      "octogonal",
+      "paranoa",
+      "park sul",
+      "park way",
+      "recanto das emas",
+      "riacho fundo",
+      "samambaia",
+      "santa maria",
+      "sobradinho",
+      "sudoeste",
+      "taguatinga",
+      "vicente pires"
+    ],
+    "property_types": [
+      "Apartamento",
+      "Casa",
+      "Garagem",
+      "Hotel-Flat",
+      "Kitnet",
+      "Loja",
+      "Lote",
+      "Ponto",
+      "Predio",
+      "Rural",
+      "Sala"
+    ]
+  }
+}
