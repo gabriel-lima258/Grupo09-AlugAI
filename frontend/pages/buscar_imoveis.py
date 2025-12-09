@@ -190,7 +190,8 @@ def show():
                 if max_price < 10000:
                     params['max_price'] = max_price
                 
-                # Buscar imóveis da API
+                # Buscar imóveis da API (limitar a 200 para performance)
+                params['limit'] = 200
                 response = requests.get(f"{API_URL}/data/properties", params=params, timeout=30)
                 
                 if response.status_code == 200:
@@ -198,37 +199,10 @@ def show():
                     properties = data.get('properties', [])
                     total = data.get('total', 0)
                     
-                    # Para cada imóvel, obter estimativa de preço
+                    # Usar preço anunciado como estimativa inicial
+                    # (predições serão feitas sob demanda quando o usuário clicar em "Ver Detalhes")
                     for prop in properties:
-                        try:
-                            # Preparar dados para predição
-                            predict_data = {
-                                "area": prop.get('area', 0),
-                                "bedrooms": prop.get('bedrooms', 0),
-                                "bathrooms": prop.get('bathrooms', 1),
-                                "parking_spaces": prop.get('parking_spaces', 0),
-                                "furnished": prop.get('furnished', False),
-                                "hoa": prop.get('hoa', 0),
-                                "property_type": prop.get('property_type', 'Apartamento'),
-                                "city": prop.get('city', 'Brasília'),
-                                "neighborhood": prop.get('neighborhood', ''),
-                                "suites": 0
-                            }
-                            
-                            # Obter estimativa
-                            predict_response = requests.post(
-                                f"{API_URL}/predict",
-                                json=predict_data,
-                                timeout=5
-                            )
-                            
-                            if predict_response.status_code == 200:
-                                predict_result = predict_response.json()
-                                prop['estimated_price'] = predict_result.get('predicted_price', prop.get('rent_amount', 0))
-                            else:
-                                prop['estimated_price'] = prop.get('rent_amount', 0)
-                        except:
-                            prop['estimated_price'] = prop.get('rent_amount', 0)
+                        prop['estimated_price'] = prop.get('rent_amount', 0)
                     
                     st.session_state.all_properties = properties
                     st.session_state.total_properties = total
@@ -245,7 +219,9 @@ def show():
         properties = st.session_state.all_properties
         total = st.session_state.get('total_properties', len(properties))
         
-        st.success(f"✅ {len(properties)} imóveis encontrados (de {total} total no dataset)")
+        # Mostrar mensagem de sucesso apenas se não foi mostrada antes
+        if buscar_button:
+            st.success(f"✅ {len(properties)} imóveis encontrados (de {total} total no dataset)")
         
         # Classificar por vantajosidade
         for prop in properties:
@@ -461,12 +437,12 @@ def show():
                        "- Ajuste o número de quartos ou área")
     
     else:
-        # Mensagem inicial - carregar imóveis automaticamente
+        # Mensagem inicial - carregar imóveis automaticamente apenas se não tiver cache
         if 'all_properties' not in st.session_state:
-            with st.spinner("🔄 Carregando todos os imóveis do dataset..."):
+            with st.spinner("🔄 Carregando imóveis do dataset..."):
                 try:
-                    # Buscar todos os imóveis sem filtros
-                    response = requests.get(f"{API_URL}/data/properties", params={'limit': 500}, timeout=30)
+                    # Buscar imóveis sem filtros (limitar a 200 para performance)
+                    response = requests.get(f"{API_URL}/data/properties", params={'limit': 200}, timeout=30)
                     
                     if response.status_code == 200:
                         data = response.json()
@@ -474,23 +450,25 @@ def show():
                         total = data.get('total', 0)
                         
                         # Usar preço anunciado como estimativa inicial
-                        # (predições podem ser feitas sob demanda)
                         for prop in properties:
                             prop['estimated_price'] = prop.get('rent_amount', 0)
                         
                         st.session_state.all_properties = properties
                         st.session_state.total_properties = total
+                        st.session_state.filter_cache_key = "initial_load"
                         st.rerun()
                     else:
                         st.error(f"Erro ao buscar imóveis: {response.status_code}")
                 except requests.exceptions.RequestException as e:
                     st.error(f"Erro ao conectar com a API: {str(e)}")
-                    st.info("💡 Certifique-se de que a API está rodando em http://localhost:5020")
+                    st.info(f"💡 Certifique-se de que a API está rodando em {API_URL}")
         
         if 'all_properties' in st.session_state and len(st.session_state.all_properties) > 0:
-            st.info(f"📊 **{len(st.session_state.all_properties)} imóveis** carregados do dataset. Use os filtros acima para refinar sua busca!")
+            total = st.session_state.get('total_properties', len(st.session_state.all_properties))
+            st.success(f"✅ **{len(st.session_state.all_properties)} imóveis** carregados (de {total} total no dataset)")
+            st.info("💡 Use os filtros acima para refinar sua busca ou clique em 'Buscar Imóveis' para aplicar os filtros!")
         else:
-            st.info("👆 **Carregando imóveis...** Use os filtros acima para refinar sua busca quando os dados carregarem!")
+            st.info("👆 **Aguardando carregamento...** Os imóveis serão exibidos em breve!")
 
 # Executar quando o arquivo é executado diretamente pelo Streamlit
 show()
