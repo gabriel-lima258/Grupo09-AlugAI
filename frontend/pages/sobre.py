@@ -99,7 +99,7 @@ def show():
     
     with col1:
         st.markdown("""
-        <div style='text-align: center; padding: 1rem; background-color: #f8f9fa; border-radius: 10px;'>
+        <div style='text-align: center; padding: 1rem; background-color: #f8f9fa;color: #1f2c33; border-radius: 10px;'>
             <h3>Gabriel Lima</h3>
             <p>Desenvolvedor Full-Stack / IA</p>
             <p><a href='https://github.com/gabriel-lima258'>@gabriel-lima258</a></p>
@@ -108,7 +108,7 @@ def show():
     
     with col2:
         st.markdown("""
-        <div style='text-align: center; padding: 1rem; background-color: #f8f9fa; border-radius: 10px;'>
+        <div style='text-align: center; padding: 1rem; background-color: #f8f9fa;color: #1f2c33; border-radius: 10px;'>
             <h3>Elias Oliveira</h3>
             <p>Engenharia de Dados / ML</p>
             <p><a href='https://github.com/EliasOliver21'>@EliasOliver21</a></p>
@@ -117,7 +117,7 @@ def show():
     
     with col3:
         st.markdown("""
-        <div style='text-align: center; padding: 1rem; background-color: #f8f9fa; border-radius: 10px;'>
+        <div style='text-align: center; padding: 1rem; background-color: #f8f9fa;color: #1f2c33; border-radius: 10px;'>
             <h3>Mateus Vasconcelos</h3>
             <p>Engenharia de Dados</p>
             <p><a href='https://github.com/mateusvasconcelos182'>@mateusvasconcelos182</a></p>
@@ -167,20 +167,22 @@ def show():
         with col1:
             feat = features[i]
             st.markdown(f"""
-            <div style='padding: 1.5rem; background-color: #f8f9fa; border-radius: 10px; height: 100%;'>
+            <div style='padding: 1.5rem; background-color: #f0f2f6;color: #1f2c33; border-radius: 10px; height: 100%;'>
                 <h3>{feat['icon']} {feat['title']}</h3>
                 <p>{feat['description']}</p>
             </div>
+            <br>
             """, unsafe_allow_html=True)
         
         if i + 1 < len(features):
             with col2:
                 feat = features[i + 1]
                 st.markdown(f"""
-                <div style='padding: 1.5rem; background-color: #f8f9fa; border-radius: 10px; height: 100%;'>
+                <div style='padding: 1.5rem; background-color: #f0f2f6;color: #1f2c33; border-radius: 10px; height: 100%;'>
                     <h3>{feat['icon']} {feat['title']}</h3>
                     <p>{feat['description']}</p>
                 </div>
+                <br>
                 """, unsafe_allow_html=True)
     
     st.markdown("---")

@@ -285,13 +285,6 @@ def show():
                     help="Preço por metro quadrado"
                 )
             
-            with col2:
-                st.metric(
-                    "📐 Preço por m²",
-                    helpers.format_currency(price_per_sqm),
-                    help="Preço por metro quadrado"
-                )
-            
             if announced_price > 0:
                 diff = announced_price - estimated_price
                 diff_pct = (diff / estimated_price) * 100
